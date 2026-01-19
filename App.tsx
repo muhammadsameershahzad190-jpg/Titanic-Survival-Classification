@@ -11,8 +11,7 @@ import {
   BrainCircuit, 
   FileText, 
   Ship,
-  ExternalLink,
-  ChevronRight
+  ExternalLink
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -25,7 +24,8 @@ const App: React.FC = () => {
     const total = TITANIC_DATASET.length;
     const survivors = TITANIC_DATASET.filter(p => p.Survived === 1).length;
     const survivalRate = ((survivors / total) * 100).toFixed(1);
-    const avgAge = (TITANIC_DATASET.reduce((acc, p) => acc + (p.Age || 0), 0) / TITANIC_DATASET.filter(p => p.Age !== null).length).toFixed(1);
+    const passengersWithAge = TITANIC_DATASET.filter(p => p.Age !== null);
+    const avgAge = (passengersWithAge.reduce((acc, p) => acc + (p.Age || 0), 0) / passengersWithAge.length).toFixed(1);
     
     return {
       total,
@@ -238,18 +238,24 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-12">
+      <footer className="bg-white border-t border-slate-200 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <Ship className="w-5 h-5 text-slate-300" />
-              <span className="text-slate-900 font-bold tracking-tight">TitanicML Platform</span>
-              <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-[10px] rounded font-bold">LATEST</span>
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <Ship className="w-5 h-5 text-slate-300" />
+                <span className="text-slate-900 font-bold tracking-tight">TitanicML Platform</span>
+                <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-[10px] rounded font-bold">V1.0.4</span>
+              </div>
+              <p className="text-slate-400 text-[10px] uppercase font-bold tracking-widest">
+                Historical Analysis Project powered by Google Gemini 3.0
+              </p>
             </div>
-            <p className="text-slate-400 text-xs text-center md:text-right">
-              Historical analysis project powered by Google Gemini 3.0.<br/>
-              © 2025 ML Research Labs. All rights reserved.
-            </p>
+            <div className="text-right">
+              <p className="text-slate-500 text-xs font-medium">Created by</p>
+              <p className="text-slate-900 font-extrabold text-sm tracking-tight italic">Muhammad Sameer Shahzad</p>
+              <p className="text-emerald-600 font-black text-[10px] uppercase tracking-[0.2em]">DATA SCIENTIST</p>
+            </div>
           </div>
         </div>
       </footer>
